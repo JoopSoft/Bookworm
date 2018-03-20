@@ -7,8 +7,10 @@ import auth from './routes/auth';
 
 
 const app = express();
+
 app.use(bodyParser.json());
-mongoose.connect('mongodb://localhost/bookworm');
+
+mongoose.connect('mongodb://127.0.0.1:27017/bookworm'); //('mongodb://localhost/bookworm', { useMongoClient: true });
 
 app.use('/api/auth', auth);
 
