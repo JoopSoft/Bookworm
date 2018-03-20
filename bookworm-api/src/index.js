@@ -10,7 +10,12 @@ const app = express();
 
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://127.0.0.1:27017/bookworm'); //('mongodb://localhost/bookworm', { useMongoClient: true });
+// replica sets
+//var uri = 'mongodb://user:pass@localhost:port,anotherhost:port,yetanother:port/bookworm';
+//mongoose.connect(uri);
+
+// SEE THE VIDEO TUTS #3 - https://www.youtube.com/watch?v=1IWzMuJKv6o
+ mongoose.connect('mongodb://localhost:27017/bookworm'); //('mongodb://localhost/bookworm', { useMongoClient: true });
 
 app.use('/api/auth', auth);
 
