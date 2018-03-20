@@ -2,20 +2,19 @@ import express from 'express';
 import path from 'path';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
+import Promise from 'bluebird';
 
 import auth from './routes/auth';
 
+dotenv.config();
 
 const app = express();
 
 app.use(bodyParser.json());
 
-// replica sets
-//var uri = 'mongodb://user:pass@localhost:port,anotherhost:port,yetanother:port/bookworm';
-//mongoose.connect(uri);
-
-// SEE THE VIDEO TUTS #3 - https://www.youtube.com/watch?v=1IWzMuJKv6o
- mongoose.connect('mongodb://localhost:27017/bookworm'); //('mongodb://localhost/bookworm', { useMongoClient: true });
+mongoose.Promise = Promise; //Overriding the promise passed credentials to mongoose then
+mongoose.connect(process.env.MONGODB_URL); //('mongodb://localhost/bookworm', { useMongoClient: true }); -- FOR OLD VERSION
 
 app.use('/api/auth', auth);
 
