@@ -8,8 +8,15 @@ import * as actions from '../../actions/auth';
 const HomePage = ({ isAuthenticated, logout }) => (
     <div>
         <h1>Home Page</h1>
-        
-        {isAuthenticated ? <Button onClick={() => logout()} primary>Logout</Button> : <Link to="/login" className="ui primary button">Login</Link>}
+
+        {isAuthenticated ? (
+            <Button onClick={() => logout()} primary>Logout</Button>
+        ) : (
+                <div>
+                    <Link to="/login" className="ui primary button">Login</Link>
+                    <Link to="/signup" className="ui primary button">Sign up</Link>
+                </div>
+            )}
     </div>
 );
 
@@ -18,7 +25,7 @@ HomePage.propTypes = {
     logout: PropTypes.func.isRequired
 };
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
     return {
         isAuthenticated: !!state.user.token
     }

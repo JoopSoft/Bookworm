@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import Promise from 'bluebird';
 
 import auth from './routes/auth';
+import users from './routes/users';
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ mongoose.Promise = Promise; //Overriding the promise passed credentials to mongo
 mongoose.connect(process.env.MONGODB_URL); //('mongodb://localhost/bookworm', { useMongoClient: true }); -- FOR OLD VERSION
 
 app.use('/api/auth', auth);
+app.use('/api/users', users);
 
 // app.post('/api/auth', (req, res) => {
 //     res.status(400).json({ errors: { global: "Invalid credentials" } });
