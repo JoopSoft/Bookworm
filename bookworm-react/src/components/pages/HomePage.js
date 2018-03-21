@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import * as actions from '../../actions/auth';
@@ -8,7 +9,7 @@ const HomePage = ({ isAuthenticated, logout }) => (
     <div>
         <h1>Home Page</h1>
         
-        {isAuthenticated ? <button onClick={() => logout()}>Logout</button> : <Link to="/login">Login</Link>}
+        {isAuthenticated ? <Button onClick={() => logout()} primary>Logout</Button> : <Link to="/login" className="ui primary button">Login</Link>}
     </div>
 );
 
