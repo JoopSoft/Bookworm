@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import uniqueValidator from 'mongoose-unique-validator';
 
 //TODO: add uniqueness and email validations to email field
-const shema = new mongoose.Schema({
+const schema = new mongoose.Schema({
     email: { 
         type: String, 
         required: true, 
@@ -19,28 +19,41 @@ const shema = new mongoose.Schema({
     confirmed: {
         type: Boolean,
         default: false
+    },
+    confirmationToken: {
+        type: String,
+        default: ''
     }
 },
 { timestamps: true });
 
-shema.methods.isValidPassword = function isValidPassword(password){
+schema.methods.isValidPassword = function isValidPassword(password){
     return bcrypt.compareSync(password, this.passwordHash);
 };
 
-shema.methods.setPassword = function setPassword(password){
+schema.methods.setPassword = function setPassword(password){
     this.passwordHash = bcrypt.hashSync(password, 10);
 };
 
-shema.methods.generateJWT = function generateJWT() {
+schema.methods.setConfirmationToken = function setConfirmationToken(){
+    this.confirmationToken = this.generateJWT();
+};
+
+schema.methods.generateConfirmationUrl = function generateConfirmationUrl(){
+    return `${process.env.HOST}/confirmation/${this.confirmationToken}`;
+};
+
+schema.methods.generateJWT = function generateJWT() {
     return jwt.sign(
         {
-            email: this.email
+            email: this.email,
+            confirmed: this.confirmed
         },
         process.env.JWT_SECRET
     )
 };
 
-shema.methods.toAuthJSON = function toAuthJSON() {
+schema.methods.toAuthJSON = function toAuthJSON() {
     return {
         email: this.email,
         confirmed: this.confirmed,
@@ -48,6 +61,6 @@ shema.methods.toAuthJSON = function toAuthJSON() {
     }
 };
 
-shema.plugin(uniqueValidator, { message: 'This email is already taken' });
+schema.plugin(uniqueValidator, { message: 'This email is already taken' });
 
-export default mongoose.model('User', shema);
+export default mongoose.model('User', schema);
