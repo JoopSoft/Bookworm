@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "gravatar-url": "^2.0.0",
     "husky": "^0.14.3",
     "jwt-decode": "^2.2.0",
     "lint-staged": "^7.0.0",

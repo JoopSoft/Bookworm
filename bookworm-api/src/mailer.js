@@ -18,7 +18,25 @@ export function sendConfirmationEmail(user) {
         from,
         to: user.email,
         subject: 'Welcome to Bookworm',
-        text: `Welcome to Bookworm.Please, confirm your email. ${ user.generateConfirmationUrl() }`
+        text: `Welcome to Bookworm.
+            Please, confirm your email.
+            
+            ${ user.generateConfirmationUrl() }
+            `
     }
     transport.sendMail(email);
-}
+};
+
+export function sendResetPasswordEmail(user) {
+    const transport = setup();
+    const email = {
+        from,
+        to: user.email,
+        subject: 'Reset password',
+        text: `To reset password follow this link:
+
+        ${ user.generateResetPasswordLink() }
+        `
+        }
+    transport.sendMail(email);
+};
