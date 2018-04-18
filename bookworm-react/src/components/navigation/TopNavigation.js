@@ -6,8 +6,11 @@ import { Link } from 'react-router-dom';
 import gravatarUrl from 'gravatar-url';
 import * as actions from '../../actions/auth';
 
-const TopNavigation = ({ user, logout }) => {
+const TopNavigation = ({ user, logout }) => (
     <Menu secondary pointing>
+        <Menu.Item as={Link} to="/">
+            Home
+        </Menu.Item>
         <Menu.Item as={Link} to="/dashboard">
             Dashboard
         </Menu.Item>
@@ -22,7 +25,7 @@ const TopNavigation = ({ user, logout }) => {
             </Dropdown>
         </Menu.Menu>
     </Menu>
-}
+);
 
 TopNavigation.propTypes = {
     user: PropTypes.shape({
