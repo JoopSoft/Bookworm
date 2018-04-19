@@ -10,6 +10,7 @@ import registerServiceWorker from './registerServiceWorker';
 import rootReducer from './rootReducer';
 import thunk from 'redux-thunk';
 import decode from 'jwt-decode';
+import setAuthorizationHeader from './utils/setAuthorizationHeader';
 
 import 'semantic-ui-css/semantic.min.css';
 
@@ -25,6 +26,7 @@ if (localStorage.bookwormJWT) {
         email: payload.email,
         confirmed: payload.confirmed
     };
+    setAuthorizationHeader(localStorage.bookwormJWT);
     store.dispatch(userLoggedIn(user));
 }
 
