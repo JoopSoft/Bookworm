@@ -27,7 +27,12 @@ export default {
 
         resetPassword: data =>
             axios
-                .post('/api/auth/reset_password', { data })
+                .post('/api/auth/reset_password', { data }),
+
+        fetchCurrentUser: () =>
+            axios
+                .get('/api/users/current_user')
+                .then(res => res.data.user)   
 
     },
     books: {

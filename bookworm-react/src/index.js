@@ -5,11 +5,12 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { userLoggedIn } from './actions/auth';
+// import { userLoggedIn } from './actions/auth';
+import { userFetched, fetchCurrentUser } from './actions/users';
 import registerServiceWorker from './registerServiceWorker';
 import rootReducer from './rootReducer';
 import thunk from 'redux-thunk';
-import decode from 'jwt-decode';
+// import decode from 'jwt-decode';
 import setAuthorizationHeader from './utils/setAuthorizationHeader';
 
 import 'semantic-ui-css/semantic.min.css';
@@ -20,14 +21,18 @@ const store = createStore(
 );
 
 if (localStorage.bookwormJWT) {
-    const payload = decode(localStorage.bookwormJWT);
-    const user = {
-        token: localStorage.bookwormJWT,
-        email: payload.email,
-        confirmed: payload.confirmed
-    };
+    // const payload = decode(localStorage.bookwormJWT);
+    // const user = {
+    //     token: localStorage.bookwormJWT,
+    //     email: payload.email,
+    //     confirmed: payload.confirmed
+    // };
     setAuthorizationHeader(localStorage.bookwormJWT);
-    store.dispatch(userLoggedIn(user));
+    // store.dispatch(userLoggedIn(user));
+    store.dispatch(fetchCurrentUser());
+}
+else {
+    store.dispatch(userFetched({}));
 }
 
 ReactDOM.render(
