@@ -3,3 +3,4 @@ export const USER_LOGGED_OUT = 'USER_LOGGED_OUT';
 export const USER_FETCHED = 'USER_FETCHED';
 export const BOOKS_FETCHED = 'BOOKS_FETCHED';
 export const BOOKS_CREATED = 'BOOKS_CREATED';
+export const LOCALE_SET = 'LOCALE_SET';
